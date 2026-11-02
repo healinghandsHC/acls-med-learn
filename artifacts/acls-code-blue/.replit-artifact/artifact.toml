@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "ACLS Code Blue Learning Program"
+version = "1.0.0"
+id = "artifacts/acls-code-blue"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18266
+
+[services.development]
+run = "pnpm --filter @workspace/acls-code-blue run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/acls-code-blue", "run", "build" ]
+publicDir = "artifacts/acls-code-blue/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18266"
+BASE_PATH = "/"
